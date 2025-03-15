@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gugăl</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            overflow: hidden;
+        }
+        .logo {
+            font-size: 80px;
+            font-weight: bold;
+            color: #4285f4;
+            margin-top: 20vh;
+            font-family: 'Product Sans', Arial, sans-serif;
+        }
+        .logo span:nth-child(2) { color: #ea4335; }
+        .logo span:nth-child(3) { color: #fbbc05; }
+        .logo span:nth-child(4) { color: #4285f4; }
+        .logo span:nth-child(5) { color: #34a853; }
+        .logo span:nth-child(6) { color: #ea4335; }
+        
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .search-box {
+            width: 40%;
+            padding: 15px;
+            font-size: 18px;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            outline: none;
+        }
+        .search-buttons {
+            margin-top: 20px;
+        }
+        .search-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #f8f9fa;
+            color: #5f6368;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .search-button:hover {
+            background-color: #dfe1e5;
+        }
+        .results {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #333;
+        }
+        .fish-gif {
+            position: absolute;
+            width: 200px;
+            cursor: pointer;
+        }
+        .ad {
+            position: absolute;
+            padding: 10px;
+            border: 1px solid black;
+            font-size: 16px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            color: white;
+        }
+        .close-ad {
+            cursor: pointer;
+            font-weight: bold;
+            float: right;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo">
+        <span>G</span><span>u</span><span>g</span><span>ă</span><span>l</span>
+    </div>
+    <div class="search-container">
+        <input type="text" id="search" class="search-box" placeholder="Caută ceva stupid..." onkeypress="handleKeyPress(event)">
+    </div>
+    <div class="search-buttons">
+        <button class="search-button" onclick="performSearch()">Căutare Gugăl</button>
+        <button class="search-button" onclick="performSearch()">Mă simt confuz</button>
+    </div>
+    <div class="results" id="results"></div>
+    
+    <h2>Google Translate</h2>
+    <input type="text" id="translateInput" class="search-box" placeholder="Scrie ceva pentru a traduce..." onkeypress="handleTranslateKeyPress(event)">
+    <button class="search-button" onclick="translateToFish()">Tradu în pestească</button>
+    <div class="results" id="translateResults"></div>
+    
+    
+    
+    <img src="https://media.tenor.com/6m3I1g_WiokAAAAM/fish-spin-sha.gif" class="fish-gif" id="fishGif">
+    
+    <script>
+        function performSearch() {
+            const responses = [
+                "Be-mi-ai țâța.",
+                "Manca-mi-ai curu.",
+                "Dacă cauti asta mai bine mă cauti la ouă.",
+                "Angajează-te sluga.",
+                "K.Y.S.",
+                "Să o fut pe ma-ta cu un sac de găini in spate.",
+                "Sti bancul cu Ionuț? Ionuț sug pula",
+                "Să-ți cadă pula-n budă și să n-ai apă să tragi după ea!!!",
+                "Cauți baschet ia-mă de boschet",
+                "Manca-mi-ai peștele.",
+                "Giugiuli-mi-ai somnu.",
+                "Să-ți dau la papacioc.",
+                "Dați-aș la papacioc.",
+                "Ai picioare de marionete, picioare de schelete, asa ca du-te dracu schelete.",
+                "Du-te în futelniță.",
+                "De azi pana mâine să-mi bag pula la tine in pâine.",
+                "Fi fa fo fum diaree explozivă acum.",
+                "Ți-aș lua un trandafir dacă ai sta la cimitir.",
+                "Te-aș duce in Veneția, eu pe barcă tu sub ea.",
+                "O iubirea mea te plac sparge-ți-aș capul in copac.",
+                "O iubirea mea discretă sparge-ți-aș capul in chiuveta."
+                
+            ];
+            const result = responses[Math.floor(Math.random() * responses.length)];
+            document.getElementById("results").innerText = result;
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                performSearch();
+            }
+        }
+
+        function translateToFish() {
+            const input = document.getElementById("translateInput").value;
+            const fishSpeak = input.split(" ").map(() => (Math.random() > 0.5 ? "blu " : "glu gla glup ")).join(" ");
+            document.getElementById("translateResults").innerText = fishSpeak;
+        }
+
+        function handleTranslateKeyPress(event) {
+            if (event.key === "Enter") {
+                translateToFish();
+            }
+        }
+
+        function playMusic() {
+            const audio = document.getElementById("backgroundAudio");
+            audio.play();
+        }
+
+        let fish = document.getElementById("fishGif");
+        let dx = 2, dy = 2;
+        let x = Math.random() * (window.innerWidth - 200);
+        let y = Math.random() * (window.innerHeight - 200);
+
+        function getRandomColor() {
+            return '#' + Math.floor(Math.random()*16777215).toString(16);
+        }
+
+        function moveFish() {
+            x += dx;
+            y += dy;
+            if (x + fish.clientWidth >= window.innerWidth || x <= 0) {
+                dx *= -1;
+                fish.style.filter = `hue-rotate(${Math.random() * 360}deg)`;
+            }
+            if (y + fish.clientHeight >= window.innerHeight || y <= 0) {
+                dy *= -1;
+                fish.style.filter = `hue-rotate(${Math.random() * 360}deg)`;
+            }
+            fish.style.left = x + "px";
+            fish.style.top = y + "px";
+            requestAnimationFrame(moveFish);
+
+        }    
+        fish.style.position = "absolute";
+        moveFish();
+        function showAd() {
+            const adMessages = ["Pegg aici!!!", "Dildo de 15 cm!!!!", "Nu rata această ocazie!", "Free antivirus!", "AK-47", "Salut, peștele este la 3km departare de tine și vrea sa te cunoască!", " Aspirator ultra XXL ", " Dani Mocanul se apropie silentios de tine "];
+            const ad = document.createElement("div");
+            ad.className = "ad";
+            ad.style.top = Math.random() * (window.innerHeight - 50) + "px";
+            ad.style.left = Math.random() * (window.innerWidth - 150) + "px";
+            ad.style.backgroundColor = `#${Math.floor(Math.random()*16777215).toString(16)}`;
+            ad.innerHTML = `<span class="close-ad" onclick="this.parentElement.remove()">X</span> ${adMessages[Math.floor(Math.random() * adMessages.length)]}`;
+            document.body.appendChild(ad);
+        }
+        setInterval(showAd, 7000);
+    </script>
+</body>
+</html>
